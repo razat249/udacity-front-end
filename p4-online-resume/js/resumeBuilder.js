@@ -56,7 +56,8 @@ var work = {
 					- Learned system design and how to build a scalable system. Also learned how to adapt different stacks.
 					- Designed and Implemented job board plugin for company's corporate site https://causecode.com. The plugin can be used to create, read, update and delete job posts. Server side of the plugin is build using groovy on grails. And the front end is build using Angular. The plugin follows REST api architecture. In this project I got learn insights of Grails and AngularJS.
 					- Ported some front end parts of company's corporate site from AngulaeJS to ReactJS. Here the front end is ported following the react-redux architecture. In this project I learned about design patterns used to build react-redux app.
-					- Added social share buttons to the company's blog and Google ReCaptcha to crm plugin. Also done some small improvements in the company's corporate site.`
+					- Added social share buttons to the company's blog and Google ReCaptcha to crm plugin. Also done some small improvements in the company's corporate site.
+			`
 		},
 		{
 			"employer" : "GeeksforGeeks",
@@ -232,6 +233,6 @@ function inName(name) {
 }
 
 
-$("#main").append(internationalizeButton);
+// $("#main").append(internationalizeButton);
 
 $("#mapDiv").append(googleMap);
