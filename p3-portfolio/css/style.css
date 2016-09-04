@@ -1,0 +1,22 @@
+body{
+	font-family: 'Lato', sans-serif;
+	color:#747704;
+	font-weight: 300;
+}
+.logo{
+	width: 120px;
+	height: 100px;
+	margin-top: 15px;
+}
+h1,h3{
+	color: gray;
+}
+.big{
+	width: 100%;
+}
+h2{
+	color: #7d97ad ;
+}
+hr{
+	border-top: 3px solid #7d97ad;
+}
