@@ -1,0 +1,29 @@
+/* add your CSS here */
+img {
+	width: 300px;
+	height: 200px;
+	margin-bottom: 10px;
+}
+
+.properties {
+	font-weight: bold;
+}
+
+.info-box {
+	border: 1px solid #ddd;
+	padding: 10px;
+	width: 278px;
+}
+
+.card {
+	border: 1px solid #ddd;
+	padding: 10px;
+	width: 298px;
+	box-shadow: 5px 5px 0px #eee;
+	margin: auto;
+}
+
+.prop-list {
+	list-style: none;
+	padding: 0;
+}
