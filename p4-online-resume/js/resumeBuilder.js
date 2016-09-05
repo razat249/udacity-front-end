@@ -13,7 +13,7 @@ var bio = {
 			"Software Engineer", "Front-End Developer", "Full-Stack Developer", "Programmer"
 			],
 			"bioPic" : "images/hero.jpg"
-}
+};
 
 var education = {
 	"schools":  [
@@ -42,7 +42,7 @@ var education = {
 			"url" : "http://www.Interviewbit.com"
 		}
 	]
-}
+};
 
 var work = {
 	"jobs" : [
@@ -70,7 +70,7 @@ var work = {
 			`
 		}
 	]
-}
+};
 
 var projects = {
 	"projects" : [
@@ -87,7 +87,7 @@ var projects = {
 			"images" : "images/197x148.gif"
 		}
 	]
-}
+};
 
 var formattedRole = HTMLheaderRole.replace('%data%',bio.role);
 $("#header").prepend(formattedRole);
@@ -122,7 +122,7 @@ if(bio.skills.length>0){
 	$("#skills").append(formattedskill);
 	formattedskill = HTMLskills.replace("%data%",bio.skills[3]);
 	$("#skills").append(formattedskill);
-	
+
 }
 function displayWorks(){
 	for(job in work.jobs){
@@ -159,7 +159,7 @@ function SchoolsData(){
 		var formattedDegree = HTMLschoolMajor.replace("%data%",education.schools[school].branch);
 		$(".education-entry:last").append(formattedDegree);
 
-	}	
+	}
 
 	for (course in education.onlineCourses){
 		var formattedTitle = HTMLonlineTitle.replace("%data%",education.onlineCourses[course].title);
@@ -202,28 +202,7 @@ function projectsData(){
 	}
 }
 
-
 projectsData();
-
-
-/*$(document).click(function(loc){
-	var x = loc.pageX;
-	var y = loc.pageY;
-
-	logClicks(x,y);
-});*/
-
-
-/*function locationizer(work_obj) {
-    var myLocations = [];
-    for (var i in work_obj.jobs) {
-        var loc = work_obj.jobs[i].location;
-        myLocations.push(loc);
-    }
-    return myLocations;
-}*/
-
-
 
 function inName(name) {
 	name = name.trim().split(" ");
