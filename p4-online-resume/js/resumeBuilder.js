@@ -96,15 +96,19 @@ $("#header").prepend(formattedName);
 
 var formattedLocation = HTMLlocation.replace('%data%',bio.contacts.location)
 $("#topContacts").prepend(formattedLocation);
+$("#footerContacts").prepend(formattedLocation);
 var formattedTwitter = HTMLtwitter.replace("%data%",bio.contacts.twitter);
 $("#topContacts").prepend(formattedTwitter);
+$("#footerContacts").prepend(formattedTwitter);
 var formattedGithub = HTMLgithub.replace("%data%",bio.contacts.github);
 $("#topContacts").prepend(formattedGithub);
+$("#footerContacts").prepend(formattedGithub);
 var formattedEmail = HTMLemail.replace("%data%",bio.contacts.email);
 $("#topContacts").prepend(formattedEmail);
+$("#footerContacts").prepend(formattedEmail);
 var formattedMobile = HTMLmobile.replace("%data%",bio.contacts.mobile);
 $("#topContacts").prepend(formattedMobile);
-
+$("#footerContacts").prepend(formattedMobile);
 
 var WelcomeMessage = HTMLWelcomeMsg.replace("%data%",bio.welcomeMessage);
 $("#header").append(WelcomeMessage);

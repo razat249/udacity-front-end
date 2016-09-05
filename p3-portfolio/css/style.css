@@ -1,25 +1,31 @@
 body {
-	font-family: 'Lato', sans-serif;
+	font-family: "Lato", sans-serif;
 	color: grey;
 	font-weight: 300;
 }
+
 .logo {
 	width: 120px;
 	height: 100px;
 	margin-top: 15px;
 }
+
 .project-title {
 	color: gray;
 }
+
 .big {
 	width: 100%;
 }
+
 .project-list-title {
 	color: #7d97ad ;
 }
+
 .saprator {
 	border-top: 3px solid #7d97ad;
 }
+
 .subtitle {
 	color: #7d97ad;
 }
