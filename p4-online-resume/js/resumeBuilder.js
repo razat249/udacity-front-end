@@ -141,12 +141,12 @@ var projects = {
         "title": "Student Search Engine",
         "dates": "2016",
         "description": "Create a student search engine for help in find anything for a student online",
-        "images": ["images/197x148.gif"]
+        "images": ["images/197x148.gif", "images/197x148.gif", "images/197x148.gif"]
     }, {
         "title": "WebApp",
         "dates": "2016",
         "description": "Create a WebApp And Android App",
-        "images": ["images/197x148.gif"]
+        "images": ["images/197x148.gif", "images/197x148.gif", "images/197x148.gif"]
     }],
     display: function() {
         projects.projects.forEach(function(project) {
@@ -161,8 +161,10 @@ var projects = {
             var formattedDescription = HTMLprojectDescription.replace("%data%", project.description);
             $(".project-entry:last").append(formattedDescription);
 
-            var formattedImage = HTMLprojectImage.replace("%data%", project.images);
-            $(".project-entry:last").append(formattedImage);
+            project.images.forEach(function(image) {
+                formattedImage = HTMLprojectImage.replace("%data%", image);
+                $(".project-entry:last").append(formattedImage);
+            });
         });
     }
 };
