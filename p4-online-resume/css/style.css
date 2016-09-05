@@ -48,7 +48,6 @@ h2, h3, h4, h5 {
   padding-right: 5%;
 }
 
-
 .date-text {
   font-style: italic;
   font-size: 14px;
@@ -73,7 +72,7 @@ p {
 }
 
 a {
-  color: #1199C3;
+  color: #c71616;
   text-decoration: none;
   margin-top: 10px;
   display: block;
@@ -92,7 +91,7 @@ a {
 }
 
 .orange {
-  background-color: #F5AE23;
+  background-color: #651313;
 }
 
 .orange-text {
@@ -116,7 +115,7 @@ a {
 
 /* TODO: Replace with image later */
 #header {
-  background-color: #484848;
+  background-color: #651313;
 }
 
 .flex-box {
@@ -144,6 +143,7 @@ ul {
   padding: 10px;
   width: 200px;
   display: none;
+  border-radius: 100%;
 }
 
 img {
@@ -164,6 +164,7 @@ img {
 
 span {
   padding: 5px;
+  color: #ddd;
 }
 
 #letsConnect {
