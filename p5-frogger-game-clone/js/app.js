@@ -1,3 +1,6 @@
+var TILE_WIDTH = 101;
+var TILE_HEIGHT = 80;
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
@@ -19,7 +22,7 @@ Enemy.prototype.reset = function() {
     this.x = startPos;
     this.y = this.getRandomY();
     this.speed = this.getRandomSpeed();
-}
+};
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -34,22 +37,22 @@ Enemy.prototype.update = function(dt) {
     if (this.x > maxPos) {
         this.reset();
     }
-}
+};
 
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Enemy.prototype.getRandomY = function() {
     return this.possibleY[Math.floor(Math.random() * this.possibleY.length)];
-}
+};
 
 Enemy.prototype.getRandomSpeed = function() {
     var minSpeed = this.speedRange[0],
         maxSpeed = this.speedRange[1];
 
     return Math.floor(Math.random() * (maxSpeed - minSpeed)) + minSpeed;
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -66,7 +69,7 @@ var Player = function() {
     this.yRange = [-20, 380];
     this.sprite = 'images/char-boy.png';
     this.reset();
-}
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -74,7 +77,7 @@ var Player = function() {
 
 Player.prototype.update = function() {
     this.checkCollisions();
-}
+};
 
 Player.prototype.checkCollisions = function() {
     if (this.y == -20) {
@@ -88,34 +91,34 @@ Player.prototype.checkCollisions = function() {
             // is the bug on the same row as the player?
             if (enemy.y == self.y) {
                 // is the bug on the player?
-                if (enemy.x >= player.x - 30 && enemy.x <= player.x + 30) {
+                if (enemy.x >= self.x - 30 && enemy.x <= self.x + 30) {
                     self.reset();
                 }
             }
         });
     }
-}
+};
 
 Player.prototype.reset = function() {
     this.x = 200;
     this.y = 380;
-}
+};
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Player.prototype.handleInput = function(key) {
     if (key === 'left') {
-        this.x -= (this.x - 101 < this.xRange[0]) ? 0 : 101;
+        this.x -= (this.x - TILE_WIDTH < this.xRange[0]) ? 0 : TILE_WIDTH;
     } else if (key === 'right') {
-        this.x += (this.x + 101 > this.xRange[1]) ? 0 : 101;
+        this.x += (this.x + TILE_WIDTH > this.xRange[1]) ? 0 : TILE_WIDTH;
     } else if (key === 'up') {
-        this.y -= (this.y - 80 < this.yRange[0]) ? 0 : 80;
+        this.y -= (this.y - TILE_HEIGHT < this.yRange[0]) ? 0 : TILE_HEIGHT;
     } else if (key === 'down') {
-        this.y += (this.y + 80 > this.yRange[1]) ? 0 : 80;
+        this.y += (this.y + TILE_HEIGHT > this.yRange[1]) ? 0 : TILE_HEIGHT;
     }
-}
+};
 
 
 // This listens for key presses and sends the keys to your
