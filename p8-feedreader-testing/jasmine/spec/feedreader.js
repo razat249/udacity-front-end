@@ -58,7 +58,7 @@ $(function() {
          * hiding/showing of the menu element.
          */
         it('should be hidden by default', function() {
-            expect($('.menu-hidden').length).not.toBe(0);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
          /* TODO: Write a test that ensures the menu changes
@@ -69,9 +69,9 @@ $(function() {
         it('should toggles', function() {
             var menuIcon = $('.menu-icon-link');
             menuIcon.click();
-            expect($('.menu-hidden').length).toBe(0);
+            expect($('body').hasClass('menu-hidden')).toBe(false);
             menuIcon.click();
-            expect($('.menu-hidden')).not.toBe(0);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
 
@@ -87,10 +87,9 @@ $(function() {
             loadFeed(0, done);
         });
 
-        it("should load initial entries", function(done) {
+        it("should load initial entries", function() {
             var entries = $('.feed').find('.entry');
             expect(entries.length > 0).toBe(true);
-            done();
         });
     });
 
@@ -100,13 +99,20 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        var before, after;
         beforeEach(function(done) {
-            loadFeed(0, done);
+            loadFeed(0, function() {
+                before = $('.feed').find('.entry').text();
+                loadFeed(1, function() {
+                    after = $('.feed').find('.entry').text();
+                    done();
+                })
+            });
         });
 
         it('should change the content', function(done) {
-            var entries = $('.feed').find('.entry');
-            expect(entries.length > 0).toBe(true);
+            console.log(before, after)
+            expect(before != after).toBe(true);
             done();
         });
     });
