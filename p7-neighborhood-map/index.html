@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Neighborhood Map</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<div id="list">
+		<ul data-bind="foreach: locationsList">
+			<li data-bind="text: title, click: $parent.openInfo"></li>
+		</ul>
+	</div>
+
+    <div id="map"></div>
+
+
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+	    $("#menu-toggle").click(function(e) {
+	        e.preventDefault();
+	        $("#wrapper").toggleClass("toggled");
+	    });
+    </script>
+
+	<script src="js/knockout-3.4.0.js"></script>
+	<script src="js/app.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1r8hd2A9KTZBW9Wp778cVfSaOQA2zN_o&callback=initMap" async defer></script>
+</body>
+</html>
