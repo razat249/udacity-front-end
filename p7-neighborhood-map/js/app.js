@@ -9,7 +9,7 @@ var initMap = function() {
   });
   // These are the real estate listings that will be shown to the user.
   // Normally we'd have these in a database instead.
-  var largeInfowindow = new google.maps.InfoWindow();
+  window.largeInfowindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
   // The following group uses the location array to create an array of markers on initialize.
   for (var i = 0; i < locations.length; i++) {
@@ -26,6 +26,7 @@ var initMap = function() {
     });
     // Push the marker to our array of markers.
     markers.push(marker);
+    locations[i].marker = marker
     // Create an onclick event to open an infowindow at each marker.
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfowindow);
@@ -33,6 +34,7 @@ var initMap = function() {
     bounds.extend(markers[i].position);
   }
   // Extend the boundaries of the map for each marker
+  console.log(locations);
   map.fitBounds(bounds);
 }
 // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -46,7 +48,7 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.open(map, marker);
     // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick',function(){
-      infowindow.setMarker(null);
+      // infowindow.setMarker(null);
     });
   }
 }
@@ -60,13 +62,30 @@ var locations = [
   {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
 ];
 
+var stringStartsWith = function (string, startsWith) {          
+    string = string || "";
+    if (startsWith.length > string.length)
+        return false;
+    return string.substring(0, startsWith.length) === startsWith;
+};
+
 var viewModel = function() {
+	var self = this;
 	this.locationsList = ko.observableArray(locations)
-	this.openInfo = function() {
-    populateInfoWindow(this, new google.maps.InfoWindow());
-		console.log("Pupu")
+	this.openInfo = function(location) {
+    populateInfoWindow(location.marker, largeInfowindow);
 	}
-  this.x = ko.observable(1);
+	this.filterString = ko.observable('');
+  this.filteredList = ko.computed(function() {
+    var filter = this.filterString().toLowerCase();
+    if (!filter) {
+        return this.locationsList();
+    } else {
+        return ko.utils.arrayFilter(this.locationsList(), function(item) {
+            return stringStartsWith(item.title.toLowerCase(), filter);
+        });
+    }
+  }, this);
 }
 
 ko.applyBindings(new viewModel());
