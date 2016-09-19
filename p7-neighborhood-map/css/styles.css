@@ -4,6 +4,20 @@ html, body {
 	margin: 0;
 	padding: 0;
 }
+
 #map {
+	left: 25%;
+	position: absolute;
 	height: 100%;
+	width: 75%;
+}
+
+#list {
+	padding: 10px;
+	overflow-y: auto;
+	max-height: 700px;
+}
+
+li:hover {
+	background-color: #eee;
 }

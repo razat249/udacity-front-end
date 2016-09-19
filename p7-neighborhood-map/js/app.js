@@ -1,3 +1,16 @@
+'use strict';
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDL8MTBMreqLsV82okOP9iXf-9cdlx3J1E",
+  authDomain: "roomer-4b356.firebaseapp.com",
+  databaseURL: "https://roomer-4b356.firebaseio.com",
+  storageBucket: "roomer-4b356.appspot.com",
+  messagingSenderId: "1060768042088"
+};
+firebase.initializeApp(config);
+
+var dbRef = firebase.database().ref().child('roomList');
+var locations;
 var map;
 // Create a new blank array for all the listing markers.
 var markers = [];
@@ -24,17 +37,19 @@ var initMap = function() {
       animation: google.maps.Animation.DROP,
       id: i
     });
+
+    marker.info = locations[i]
     // Push the marker to our array of markers.
     markers.push(marker);
     locations[i].marker = marker
     // Create an onclick event to open an infowindow at each marker.
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfowindow);
+      toggleBounce(this);
     });
     bounds.extend(markers[i].position);
   }
   // Extend the boundaries of the map for each marker
-  console.log(locations);
   map.fitBounds(bounds);
 }
 // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -44,23 +59,37 @@ function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
     infowindow.marker = marker;
-    infowindow.setContent('<div>' + marker.title + '</div>');
+    console.log(marker.info)
+    infowindow.setContent('<div>' + '<b>' + 'Landlord name: ' + 
+            marker.info.name + '</b>'+ '<br>' + marker.info.address + 
+            '<br><br>' + marker.info.description + '<br>'+ '<a href="tell:'+ marker.info.mobile +'">'+ marker.info.mobile + '</a>' +'</div>');
     infowindow.open(map, marker);
     // Make sure the marker property is cleared if the infowindow is closed.
-    infowindow.addListener('closeclick',function(){
+    infowindow.addListener('closeclick', function(){
       // infowindow.setMarker(null);
     });
   }
 }
 
-var locations = [
-  {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-  {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-  {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-  {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-  {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-  {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
-];
+function toggleBounce(marker) {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setAnimation(null);
+    }
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
+
+// var locations = [
+//   {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
+//   {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
+//   {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
+//   {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
+//   {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
+//   {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+// ];
 
 var stringStartsWith = function (string, startsWith) {          
     string = string || "";
@@ -74,6 +103,7 @@ var viewModel = function() {
 	this.locationsList = ko.observableArray(locations)
 	this.openInfo = function(location) {
     populateInfoWindow(location.marker, largeInfowindow);
+    toggleBounce(location.marker);
 	}
 	this.filterString = ko.observable('');
   this.filteredList = ko.computed(function() {
@@ -88,4 +118,8 @@ var viewModel = function() {
   }, this);
 }
 
-ko.applyBindings(new viewModel());
+dbRef.once('value').then(function(data) {
+  locations = data.val();
+  initMap();
+  ko.applyBindings(new viewModel());
+});
