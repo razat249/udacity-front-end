@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Neighborhood Map</title>
     <link rel="stylesheet" href="css/styles.css">
     <!-- Bootstrap Core CSS -->
@@ -9,7 +11,7 @@
 <body class="container-fluid">
 
 	<section class="row">
-		<div id="list" class="col-md-3">
+		<div id="list" class="col-xs-3">
 			<input placeholder="Search" class="form-control" data-bind="value: filterString, valueUpdate: 'afterkeydown'" />
 			<br>
 			<!-- <button data-bind="click: pupu">Pupu</button> -->
@@ -18,7 +20,7 @@
 			</ul>
 		</div>
 
-	    <div id="map" class="col-md-9"></div>
+	    <div id="map" class="col-xs-9"></div>
 	</section>
 
     <script src="js/jquery.js"></script>
