@@ -1,0 +1,29 @@
+{
+  "name": "udacity-front-end-nanodegree-projects",
+  "version": "1.0.0",
+  "description": "This repo contains all my projects done under front-end-nanodegree.",
+  "main": "index.js",
+  "dependencies": {
+    "eslint": "^3.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.5.0",
+    "eslint-config-google": "^0.6.0",
+    "eslint-config-standard": "^6.0.1",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-standard": "^2.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/razat249/udacity-front-end.git"
+  },
+  "author": "Rajat Patwa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/razat249/udacity-front-end/issues"
+  },
+  "homepage": "https://github.com/razat249/udacity-front-end#readme"
+}

@@ -14,9 +14,10 @@
 
     <section class="row">
         <div id="list" class="col-xs-3">
-            <input placeholder="Search" class="form-control" data-bind="value: filterString, valueUpdate: 'afterkeydown'" />
+            <input placeholder="Search" class="form-control" data-bind="value: filterString" />
             <br>
-            <!-- <button data-bind="click: pupu">Pupu</button> -->
+            <button class="btn btn-default pull-right" data-bind="click: updateLoc">Search</button>
+            <br><hr>
             <ul data-bind="foreach: filteredList" class="list-group">
                 <li data-bind="text: address, click: $parent.openInfo" class="list-group-item"></li>
             </ul>
@@ -29,7 +30,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/knockout-3.4.0.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1r8hd2A9KTZBW9Wp778cVfSaOQA2zN_o" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1r8hd2A9KTZBW9Wp778cVfSaOQA2zN_o" onerror="mapError()" async defer></script>
     <script src="js/app.js"></script>
 </body>
 

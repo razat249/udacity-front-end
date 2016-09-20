@@ -15,54 +15,57 @@ var map;
 // Create a new blank array for all the listing markers.
 var markers = [];
 var initMap = function() {
-        // Constructor creates a new map - only center and zoom are required.
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-                lat: 40.7413549,
-                lng: -73.9980244
-            },
-            zoom: 13
-        });
-        // These are the real estate listings that will be shown to the user.
-        // Normally we'd have these in a database instead.
-        window.largeInfowindow = new google.maps.InfoWindow();
-        var bounds = new google.maps.LatLngBounds();
-        // The following group uses the location array to create an array of markers on initialize.
-        for (var i = 0; i < locations.length; i++) {
-            // Get the position from the location array.
-            var position = locations[i].location;
-            var title = locations[i].title;
-            // Create a marker per location, and put into markers array.
-            var marker = new google.maps.Marker({
-                map: map,
-                position: position,
-                title: title,
-                animation: google.maps.Animation.DROP,
-                id: i
-            });
+    // Constructor creates a new map - only center and zoom are required.
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+            "lat" : 28.041838,
+            "lng" : 73.297667
+        },
+        zoom: 15
+    });
+};
 
-            marker.info = locations[i]
-                // Push the marker to our array of markers.
-            markers.push(marker);
-            locations[i].marker = marker
-                // Create an onclick event to open an infowindow at each marker.
-            marker.addListener('click', function() {
-                populateInfoWindow(this, largeInfowindow);
-                toggleBounce(this);
-            });
-            bounds.extend(markers[i].position);
-        }
-        // Extend the boundaries of the map for each marker
-        map.fitBounds(bounds);
+function addMarkers(locations) {
+    // These are the rooms/appartments listings that will be shown to the user.
+    // Normally we'd have these in a database instead.
+    window.largeInfowindow = new google.maps.InfoWindow();
+    var bounds = new google.maps.LatLngBounds();
+    // The following group uses the location array to create an array of markers on initialize.
+    for (var i = 0; i < locations.length; i++) {
+        // Get the position from the location array.
+        var position = locations[i].location;
+        var title = locations[i].title;
+        // Create a marker per location, and put into markers array.
+        var marker = new google.maps.Marker({
+            map: map,
+            position: position,
+            title: title,
+            animation: google.maps.Animation.DROP,
+            id: i
+        });
+
+        marker.info = locations[i];
+        // Push the marker to our array of markers.
+        markers.push(marker);
+        locations[i].marker = marker;
+        // Create an onclick event to open an infowindow at each marker.
+        marker.addListener('click', function() {
+            populateInfoWindow(this, largeInfowindow);
+            toggleBounce(this);
+        });
+        // bounds.extend(markers[i].position);
     }
-    // This function populates the infowindow when the marker is clicked. We'll only allow
-    // one infowindow which will open at the marker that is clicked, and populate based
-    // on that markers position.
+    // Extend the boundaries of the map for each marker
+    // map.fitBounds(bounds);
+}
+
+// This function populates the infowindow when the marker is clicked. We'll only allow
+// one infowindow which will open at the marker that is clicked, and populate based
+// on that markers position.
 function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
         infowindow.marker = marker;
-        console.log(marker.info)
         infowindow.setContent('<div>' + '<b>' + 'Landlord name: ' +
             marker.info.name + '</b>' + '<br>' + marker.info.address +
             '<br><br>' + marker.info.description + '<br>' + '<a href="tell:' + marker.info.mobile + '">' + marker.info.mobile + '</a>' + '</div>');
@@ -94,11 +97,12 @@ var stringStartsWith = function(string, startsWith) {
 
 var viewModel = function() {
     var self = this;
-    this.locationsList = ko.observableArray(locations)
+    this.locationsList = ko.observableArray(locations);
+    addMarkers(this.locationsList());
     this.openInfo = function(location) {
         populateInfoWindow(location.marker, largeInfowindow);
         toggleBounce(location.marker);
-    }
+    };
     this.filterString = ko.observable('');
     this.filteredList = ko.computed(function() {
         var filter = this.filterString().toLowerCase();
@@ -110,6 +114,20 @@ var viewModel = function() {
             });
         }
     }, this);
+    this.updateLoc = function() {
+        for (var i = 0; i < this.locationsList().length; i++) {
+            if (!this.filteredList().includes(this.locationsList()[i])){
+                markers[i].setMap(null);
+            } else {
+                markers[i].setMap(map);
+            }
+        }
+        // addMarkers(this.filteredList());
+    }
+};
+
+function mapError() {
+  window.alert("Something went wrong! Try Reloading")
 }
 
 dbRef.once('value').then(function(data) {
