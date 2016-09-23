@@ -110,7 +110,7 @@ var viewModel = function() {
             return this.locationsList();
         } else {
             return ko.utils.arrayFilter(this.locationsList(), function(item) {
-                return stringStartsWith(item.address.toLowerCase(), filter);
+                return item.address.toLowerCase().indexOf(filter) > -1;
             });
         }
     }, this);
