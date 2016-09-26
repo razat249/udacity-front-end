@@ -1,6 +1,8 @@
 # Front-End Web Developer Nanodegree
 This repository contains project work for Udacity's [Front-End Web Developer Nanodegree](https://www.udacity.com/course/nd001) from the Septrmber 2016 cohort.
 
+![Front-End Web Developer Nanodegree](https://github.com/razat249/udacity-front-end/blob/master/front-end-nanodegree.png)
+
 ### Projects:
 - **p1** - Mockup to Article
 - **p2** - Animal Trading Cards
